@@ -2,12 +2,22 @@
   <el-container style="height: 100vh;">
     <el-aside style="background: #e8f0f3;width: 200px;">
       <el-menu router :default-openeds="activeOpeneds">
-        <el-submenu index="2">
-          <template slot="title"><i class="el-icon-menu"></i>分类管理</template>
+        <el-submenu index="1">
+          <template slot="title"><i class="el-icon-menu"></i>内容管理</template>
           <el-menu-item-group>
             <template slot="title">分类</template>
             <el-menu-item index="/category/create">新增分类</el-menu-item>
             <el-menu-item index="/category/list">分类列表</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+            <template slot="title">物品</template>
+            <el-menu-item index="/item/create">新增物品</el-menu-item>
+            <el-menu-item index="/item/list">物品列表</el-menu-item>
+          </el-menu-item-group>
+          <el-menu-item-group>
+            <template slot="title">英雄</template>
+            <el-menu-item index="/hero/create">新增英雄</el-menu-item>
+            <el-menu-item index="/hero/list">英雄列表</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
@@ -33,7 +43,7 @@
 export default {
   data () {
     return {
-      activeOpeneds: ['2']
+      activeOpeneds: ['1']
     }
   }
 }

@@ -4,8 +4,7 @@
     <el-form ref="form" :model="form" label-width="120px" @submit.prevent.native="save">
       <el-form-item label="上级分类">
         <el-select v-model="form.parent" placeholder="请选择上级分类">
-          <el-option label="新闻" value="news"></el-option>
-          <el-option label="视频" value="video"></el-option>
+          <el-option v-for="parent in parentOptions" :key="parent._id" :label="parent.name" :value="parent._id"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="分类名称">
@@ -25,32 +24,37 @@ export default {
   },
   data () {
     return {
-      form: {}
+      form: {},
+      parentOptions: []
     }
   },
   methods: {
     async save () {
-      if(this.id) {
-        await this.$http.put(`category/${this.id}`, this.form)
+      if (this.id) {
+        await this.$http.put(`rest/category/${this.id}`, this.form)
       } else {
-        await this.$http.post('category', this.form)
+        await this.$http.post('rest/category', this.form)
       }
       this.$router.push('/category/list')
       this.$message({
         type: 'success',
         message: '保存成功'
       })
-      console.log(this.form.name)
     },
     async fetch () {
-      let res = await this.$http.get(`category/${this.id}`)
+      let res = await this.$http.get(`rest/category/${this.id}`)
       this.form = res.data
     },
-  },
-  created() {
-    if(this.id) {
-      this.fetch()
+    async fetchParentOptions () {
+      let res = await this.$http.get(`rest/category`)
+      this.parentOptions = res.data
     }
   },
+  created () {
+    if (this.id) {
+      this.fetch()
+    }
+    this.fetchParentOptions()
+  }
 }
 </script>
